@@ -62,7 +62,7 @@ const thoughtController = {
                 res.status(404).json({message: "No thought found with this ID!"})
                 return;
             }
-            res.json(dbThoughtData);
+            res.json([dbThoughtData, {message: 'The above thought was successfully deleted!'}]);
         })
         .catch(err => res.status(400).json(err));
     }
