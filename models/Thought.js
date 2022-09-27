@@ -1,4 +1,3 @@
-const { ObjectId } = require('mongodb');
 const {Schema, model} = require('mongoose')
 const dayjs = require('dayjs')
 
@@ -18,28 +17,12 @@ const ThoughtSchema = new Schema({
         type: String,
         require: true
     },
-    reactions: [{
-        reactionSchema: new Schema({
-            reactionId: {
-                type: Schema.Types.ObjectId,
-                default: new ObjectId
-            },
-            reactionBody: {
-                type: String,
-                require: true,
-                maxLength: 280
-            },
-            username: {
-                type: String,
-                require: true
-            },
-            createdAt: {
-                type: Date,
-                default: Date.now
-        
-            }
-        })
-    }]
+    reactions: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Reaction'
+        }
+    ]
 },
 {
     toJSON: {
