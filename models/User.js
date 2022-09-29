@@ -1,4 +1,25 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model, Types} = require('mongoose')
+
+const friendSchema = new Schema({
+    friendId: {
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId()
+    },
+    firstName: {
+        type: String,
+        trim: true
+    },
+    lastName: {
+        type: String,
+        trim: true
+    },
+    email: {
+        type: String,
+        require: true,
+        unique: true,
+        match: /.+\@.+\..+/
+    }
+})
 
 const UserSchema = new Schema({
     username: {
@@ -19,12 +40,7 @@ const UserSchema = new Schema({
             ref: 'Thought'
         }
     ],
-    friends: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'User'
-        }
-    ]
+    friends: [friendSchema]
 },
     {
         toJSON: {
